@@ -6,12 +6,12 @@ struct Node{
     Node* Link; //addr of Link Link
 };
 
-class list
+class linkedList
 {
     private:
     Node *head, *tail;
     public:
-    list()
+    linkedList()
     {
         head = NULL;
         tail = NULL;
@@ -106,11 +106,29 @@ class list
         }
         previous->Link = current->Link;
     }
+
+    //Reverse the list
+    void IterativeReverse()
+    {
+        Node *prev = new Node; 
+        Node *current = new Node;
+        Node *next = new Node;
+        current = head; //current is set to current head
+        prev = NULL;
+        while(current != NULL)
+        {
+            next = current->Link; //save the next value for cur->Link in next
+            current->Link = prev; //this changes direction current is Linking
+            prev = current; //now can change the prev to hold current value
+            current = next; //and current to hold next value
+        }
+        head = prev;
+    }
 };
 
 int main()
 {
-	list obj;
+	linkedList obj;
 	obj.createNode(10);
 	obj.createNode(20);
 	obj.createNode(30);
@@ -149,6 +167,11 @@ int main()
 	cout<<"--------------Deleting At Index 4--------------------------";
 	cout<<"\n-----------------------------------------------------------\n";
 	obj.delete_position(4);
+	obj.display();
+    cout<<"\n-----------------------------------------------------------\n";
+	cout<<"--------------Iterative Reverse Linked List----------------";
+	cout<<"\n-----------------------------------------------------------\n";
+	obj.IterativeReverse();
 	obj.display();
 	cout<<"\n-----------------------------------------------------------\n";
 	return 0;
